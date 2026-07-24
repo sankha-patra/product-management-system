@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 import java.io.OutputStreamWriter;
 import java.util.List;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 @Service
 @RequiredArgsConstructor
@@ -31,27 +32,50 @@ public class ReportService {
         };
     }
 
-    public StreamingResponseBody generateXlsxReport() {
-        return outputStream -> {
-            try (Workbook workbook = new XSSFWorkbook()) {
-                Sheet sheet = workbook.createSheet("Products");
-                Row header = sheet.createRow(0);
-                header.createCell(0).setCellValue("ID");
-                header.createCell(1).setCellValue("Name");
-                header.createCell(2).setCellValue("Price");
-                header.createCell(3).setCellValue("Category");
+    // public StreamingResponseBody generateXlsxReport() {
+    //     return outputStream -> {
+    //         try (Workbook workbook = new XSSFWorkbook()) {
+    //             Sheet sheet = workbook.createSheet("Products");
+    //             Row header = sheet.createRow(0);
+    //             header.createCell(0).setCellValue("ID");
+    //             header.createCell(1).setCellValue("Name");
+    //             header.createCell(2).setCellValue("Price");
+    //             header.createCell(3).setCellValue("Category");
 
-                List<Product> products = productRepository.findAll();
-                int rowIdx = 1;
-                for (Product p : products) {
-                    Row row = sheet.createRow(rowIdx++);
-                    row.createCell(0).setCellValue(p.getId());
-                    row.createCell(1).setCellValue(p.getName());
-                    row.createCell(2).setCellValue(p.getPrice().doubleValue());
-                    row.createCell(3).setCellValue(p.getCategory().getName());
-                }
-                workbook.write(outputStream);
+    //             List<Product> products = productRepository.findAll();
+    //             int rowIdx = 1;
+    //             for (Product p : products) {
+    //                 Row row = sheet.createRow(rowIdx++);
+    //                 row.createCell(0).setCellValue(p.getId());
+    //                 row.createCell(1).setCellValue(p.getName());
+    //                 row.createCell(2).setCellValue(p.getPrice().doubleValue());
+    //                 row.createCell(3).setCellValue(p.getCategory().getName());
+    //             }
+    //             workbook.write(outputStream);
+    //         }
+    //     };
+    // }
+    public StreamingResponseBody generateXlsxReport() {
+    return outputStream -> {
+        try (SXSSFWorkbook workbook = new SXSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("Products");
+            Row header = sheet.createRow(0);
+            header.createCell(0).setCellValue("ID");
+            header.createCell(1).setCellValue("Name");
+            header.createCell(2).setCellValue("Price");
+            header.createCell(3).setCellValue("Category");
+            List<Product> products = productRepository.findAll();
+            int rowIdx = 1;
+            for (Product p : products) {
+                Row row = sheet.createRow(rowIdx++);
+                row.createCell(0).setCellValue(p.getId());
+                row.createCell(1).setCellValue(p.getName());
+                row.createCell(2).setCellValue(p.getPrice().doubleValue());
+                row.createCell(3).setCellValue(p.getCategory().getName());
             }
-        };
-    }
+            workbook.write(outputStream);
+            workbook.dispose();
+        }
+    };
+}
 }
