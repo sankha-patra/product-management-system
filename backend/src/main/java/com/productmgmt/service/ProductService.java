@@ -21,6 +21,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.io.ByteArrayInputStream;
 
 @Service
 @RequiredArgsConstructor
@@ -70,37 +71,67 @@ public class ProductService {
         productRepository.delete(getProduct(id));
     }
 
-    @Async
-    @Transactional
-    public void processBulkUpload(MultipartFile file) {
-        try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
-            String[] line;
-            boolean first = true;
-            List<Product> batch = new ArrayList<>();
-            while ((line = reader.readNext()) != null) {
-                if (first) { first = false; continue; }
-                if (line.length < 4) continue;
-                String name = line[0];
-                String image = line[1];
-                BigDecimal price = new BigDecimal(line[2]);
-                Long categoryId = Long.parseLong(line[3]);
+    // @Async
+    // @Transactional
+    // public void processBulkUpload(MultipartFile file) {
+    //     try (CSVReader reader = new CSVReader(new InputStreamReader(file.getInputStream()))) {
+    //         String[] line;
+    //         boolean first = true;
+    //         List<Product> batch = new ArrayList<>();
+    //         while ((line = reader.readNext()) != null) {
+    //             if (first) { first = false; continue; }
+    //             if (line.length < 4) continue;
+    //             String name = line[0];
+    //             String image = line[1];
+    //             BigDecimal price = new BigDecimal(line[2]);
+    //             Long categoryId = Long.parseLong(line[3]);
                 
-                Category category = categoryRepository.findById(categoryId).orElse(null);
-                if (category != null) {
-                    batch.add(Product.builder().name(name).image(image).price(price).category(category).build());
-                }
-                if (batch.size() >= 500) {
-                    productRepository.saveAll(batch);
-                    batch.clear();
-                }
+    //             Category category = categoryRepository.findById(categoryId).orElse(null);
+    //             if (category != null) {
+    //                 batch.add(Product.builder().name(name).image(image).price(price).category(category).build());
+    //             }
+    //             if (batch.size() >= 500) {
+    //                 productRepository.saveAll(batch);
+    //                 batch.clear();
+    //             }
+    //         }
+    //         if (!batch.isEmpty()) {
+    //             productRepository.saveAll(batch);
+    //         }
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
+    @Async
+@Transactional
+public void processBulkUpload(byte[] fileBytes) {
+    try (CSVReader reader = new CSVReader(new InputStreamReader(new java.io.ByteArrayInputStream(fileBytes)))) {
+        String[] line;
+        boolean first = true;
+        List<Product> batch = new ArrayList<>();
+        while ((line = reader.readNext()) != null) {
+            if (first) { first = false; continue; }
+            if (line.length < 4) continue;
+            String name = line[0];
+            String image = line[1];
+            BigDecimal price = new BigDecimal(line[2]);
+            Long categoryId = Long.parseLong(line[3]);
+            Category category = categoryRepository.findById(categoryId).orElse(null);
+            if (category != null) {
+                batch.add(Product.builder().name(name).image(image).price(price).category(category).build());
             }
-            if (!batch.isEmpty()) {
+            if (batch.size() >= 500) {
                 productRepository.saveAll(batch);
+                batch.clear();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        if (!batch.isEmpty()) {
+            productRepository.saveAll(batch);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
 
     private Product getProduct(Long id) {
         return productRepository.findById(id)
