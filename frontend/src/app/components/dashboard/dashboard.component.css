@@ -1,0 +1,53 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.stat-card mat-card-content {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 1.5rem;
+}
+
+.stat-icon mat-icon {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+  color: white;
+}
+
+.category-icon {
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
+}
+
+.product-icon {
+  background: linear-gradient(135deg, #3b82f6, #10b981);
+}
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+}

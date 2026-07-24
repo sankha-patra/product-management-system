@@ -1,0 +1,32 @@
+<h2 mat-dialog-title class="gradient-text">{{ data ? 'Edit' : 'Add' }} Product</h2>
+<mat-dialog-content>
+  <form [formGroup]="form" class="form-grid">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Product Name</mat-label>
+      <input matInput formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Image URL</mat-label>
+      <input matInput formControlName="image">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price" type="number">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Category</mat-label>
+      <mat-select formControlName="categoryId">
+        <mat-option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button class="gradient-button" [disabled]="form.invalid" (click)="onSubmit()">
+    Save
+  </button>
+</mat-dialog-actions>

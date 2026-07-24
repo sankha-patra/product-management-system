@@ -1,0 +1,90 @@
+:root {
+  --bg-color: #0a0a0f;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --accent-start: #6366f1;
+  --accent-end: #8b5cf6;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-button {
+  background: linear-gradient(135deg, var(--accent-start), var(--accent-end)) !important;
+  color: white !important;
+  border: none;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.gradient-button:hover {
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.4) !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-line-ripple::before {
+  border-bottom-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label,
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  color: var(--text-primary) !important;
+}
+
+.mat-mdc-table {
+  background: transparent !important;
+}
+
+.mat-mdc-header-cell {
+  color: var(--text-secondary) !important;
+  border-bottom-color: var(--glass-border) !important;
+}
+
+.mat-mdc-cell {
+  color: var(--text-primary) !important;
+  border-bottom-color: var(--glass-border) !important;
+}
+
+.mat-mdc-row:hover {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+}
+
+.mat-mdc-dialog-surface {
+  background: #13131a !important;
+  border: 1px solid var(--glass-border) !important;
+  color: white !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}

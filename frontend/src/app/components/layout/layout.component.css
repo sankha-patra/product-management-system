@@ -1,0 +1,68 @@
+.sidenav-container {
+  height: 100vh;
+  background: transparent;
+}
+
+.sidebar {
+  width: 250px;
+  background: var(--bg-color);
+  border-right: 1px solid var(--glass-border);
+  border-radius: 0;
+}
+
+.sidebar-header {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.sidebar-header h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+mat-nav-list a {
+  margin: 0.5rem 1rem;
+  border-radius: 8px !important;
+  color: var(--text-secondary) !important;
+  transition: all 0.2s;
+}
+
+mat-nav-list a:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text-primary) !important;
+}
+
+.active-link {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1)) !important;
+  color: var(--accent-start) !important;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.active-link mat-icon {
+  color: var(--accent-start) !important;
+}
+
+.main-content {
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  background: transparent !important;
+  border: none;
+  border-bottom: 1px solid var(--glass-border);
+  border-radius: 0;
+  padding: 0 2rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.content-wrapper {
+  padding: 2rem;
+  flex: 1;
+  overflow: auto;
+}

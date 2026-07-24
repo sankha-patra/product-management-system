@@ -1,0 +1,23 @@
+<div class="upload-container">
+  <h2 class="gradient-text">Bulk Upload Products</h2>
+  <mat-card class="glass-card drop-zone"
+            [class.drag-over]="isDragging"
+            (dragover)="onDragOver($event)"
+            (dragleave)="onDragLeave($event)"
+            (drop)="onDrop($event)">
+    <mat-card-content class="drop-content">
+      <mat-icon class="upload-icon">cloud_upload</mat-icon>
+      <h3>Drag & Drop CSV file here</h3>
+      <p class="text-secondary">or</p>
+      <input type="file" #fileInput (change)="onFileSelected($event)" accept=".csv" hidden>
+      <button mat-raised-button class="gradient-button" (click)="fileInput.click()">
+        Browse File
+      </button>
+
+      <div *ngIf="uploading" class="progress-container">
+        <p>Uploading...</p>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,36 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened class="glass-card sidebar">
+    <div class="sidebar-header">
+      <h2 class="gradient-text">PMS</h2>
+    </div>
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <div matListItemTitle>Dashboard</div>
+      </a>
+      <a mat-list-item routerLink="/categories" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>category</mat-icon>
+        <div matListItemTitle>Categories</div>
+      </a>
+      <a mat-list-item routerLink="/products" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>inventory_2</mat-icon>
+        <div matListItemTitle>Products</div>
+      </a>
+      <a mat-list-item routerLink="/bulk-upload" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>upload_file</mat-icon>
+        <div matListItemTitle>Bulk Upload</div>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content class="main-content">
+    <mat-toolbar class="glass-card topbar">
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+    <div class="content-wrapper animate-fade-in">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
