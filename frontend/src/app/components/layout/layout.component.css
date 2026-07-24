@@ -74,3 +74,6 @@ mat-nav-list a mat-icon {
   flex: 1;
   overflow: auto;
 }
+::ng-deep mat-nav-list .mat-mdc-list-item-title {
+  color: var(--text-primary) !important;
+}
