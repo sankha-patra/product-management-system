@@ -112,3 +112,31 @@ mat-card-subtitle {
 .animate-fade-in {
   animation: fadeIn 0.4s ease-out forwards;
 }
+/* Fix search icon, select text, stroked buttons */
+::ng-deep .mat-mdc-text-field-wrapper .mat-icon {
+  color: var(--text-primary) !important;
+}
+
+::ng-deep .mat-mdc-select-value-text,
+::ng-deep .mat-mdc-select-placeholder {
+  color: var(--text-primary) !important;
+}
+
+::ng-deep .mat-mdc-select-arrow {
+  color: var(--text-primary) !important;
+}
+
+/* Fix CSV/Excel report stroked buttons */
+::ng-deep .mat-mdc-outlined-button {
+  color: var(--text-primary) !important;
+  border-color: var(--glass-border) !important;
+}
+
+/* Fix dropdown options panel */
+::ng-deep .mat-mdc-option {
+  color: var(--text-primary) !important;
+}
+
+::ng-deep .mat-mdc-select-panel {
+  background: #1a1a2e !important;
+}
