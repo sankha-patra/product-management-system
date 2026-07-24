@@ -77,3 +77,13 @@ mat-nav-list a mat-icon {
 ::ng-deep mat-nav-list .mat-mdc-list-item-title {
   color: var(--text-primary) !important;
 }
+/* Fix topbar visibility */
+.topbar {
+  background: var(--glass-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Fix logout icon visibility */
+.topbar mat-icon {
+  color: var(--text-primary) !important;
+}
