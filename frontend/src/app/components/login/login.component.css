@@ -46,11 +46,3 @@ mat-card-title {
 .auth-actions a:hover {
   text-decoration: underline;
 }
-
-::ng-deep .mat-mdc-text-field-wrapper input.mat-mdc-input-element {
-  color: #333333 !important;
-}
-
-::ng-deep .mat-mdc-form-field-label {
-  color: #555555 !important;
-}
