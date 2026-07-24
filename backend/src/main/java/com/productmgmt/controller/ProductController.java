@@ -52,9 +52,16 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
+    // @PostMapping("/bulk-upload")
+    // public ResponseEntity<BulkUploadResponse> bulkUpload(@RequestParam("file") MultipartFile file) {
+    //     productService.processBulkUpload(file);
+    //     return ResponseEntity.ok(new BulkUploadResponse("Upload started successfully", 0));
+    // }
+
     @PostMapping("/bulk-upload")
-    public ResponseEntity<BulkUploadResponse> bulkUpload(@RequestParam("file") MultipartFile file) {
-        productService.processBulkUpload(file);
+    public ResponseEntity<BulkUploadResponse> bulkUpload(@RequestParam("file") MultipartFile file) throws Exception {
+        byte[] fileBytes = file.getBytes();
+        productService.processBulkUpload(fileBytes);
         return ResponseEntity.ok(new BulkUploadResponse("Upload started successfully", 0));
     }
     @GetMapping("/report")
