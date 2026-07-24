@@ -60,6 +60,14 @@ mat-nav-list a:hover {
 .spacer {
   flex: 1 1 auto;
 }
+/* Fix sidebar text and icon visibility */
+mat-nav-list a {
+  color: var(--text-primary) !important;
+}
+
+mat-nav-list a mat-icon {
+  color: var(--text-secondary) !important;
+}
 
 .content-wrapper {
   padding: 2rem;
