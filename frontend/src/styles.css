@@ -80,6 +80,21 @@ body {
   color: white !important;
 }
 
+/* Fix: Dark card background to match theme */
+.mat-mdc-card {
+  background-color: var(--glass-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Fix: Input text dark so it works on the light card */
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  color: #1a1a1a !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label {
+  color: #444444 !important;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
