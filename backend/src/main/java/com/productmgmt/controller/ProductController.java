@@ -57,17 +57,20 @@ public class ProductController {
         productService.processBulkUpload(file);
         return ResponseEntity.ok(new BulkUploadResponse("Upload started successfully", 0));
     }
-
     @GetMapping("/report")
     public ResponseEntity<StreamingResponseBody> getReport(@RequestParam(defaultValue = "csv") String format) {
         if ("xlsx".equalsIgnoreCase(format)) {
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=products.xlsx")
-                    .body(reportService.generateXlsxReport());
-        } else {
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=products.xlsx")
+                .header(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+                .body(reportService.generateXlsxReport());
+        }else {
             return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=products.csv")
-                    .body(reportService.generateCsvReport());
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=products.csv")
+                .header(HttpHeaders.CONTENT_TYPE, "text/csv")
+                .body(reportService.generateCsvReport());
         }
     }
+
+   
 }
