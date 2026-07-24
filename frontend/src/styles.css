@@ -94,6 +94,15 @@ body {
 .mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-floating-label {
   color: #444444 !important;
 }
+/* Fix typed text visibility */
+.mdc-text-field--filled:not(.mdc-text-field--disabled) .mdc-text-field__input {
+  color: #ffffff !important;
+}
+
+/* Fix subtitle color */
+mat-card-subtitle {
+  color: var(--text-secondary) !important;
+}
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
