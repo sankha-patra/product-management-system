@@ -46,3 +46,24 @@ table {
   background: transparent !important;
   color: var(--text-primary) !important;
 }
+
+/* Fix CSV/Excel stroked buttons */
+::ng-deep .mat-mdc-outlined-button {
+  color: var(--text-primary) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Fix search icon */
+::ng-deep .mat-mdc-text-field-wrapper .mat-icon {
+  color: var(--text-primary) !important;
+}
+
+/* Fix All Categories dropdown */
+::ng-deep .mat-mdc-select-value-text,
+::ng-deep .mat-mdc-select-placeholder {
+  color: var(--text-primary) !important;
+}
+
+::ng-deep .mat-mdc-select-arrow {
+  color: var(--text-primary) !important;
+}
