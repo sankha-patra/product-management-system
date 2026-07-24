@@ -8,12 +8,13 @@ import org.springframework.data.repository.query.Param;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     boolean existsByCategoryId(Long categoryId);
-    
-    @Query(value = "SELECT * FROM products p JOIN categories c ON p.category_id = c.id " +
-       "WHERE (:categoryId IS NULL OR p.category_id = :categoryId) " +
-       "AND (:search IS NULL OR p.name ILIKE CONCAT('%', :search, '%'))",
-       countQuery = "SELECT COUNT(*) FROM products p WHERE (:categoryId IS NULL OR p.category_id = :categoryId) " +
-       "AND (:search IS NULL OR p.name ILIKE CONCAT('%', :search, '%'))",
-       nativeQuery = true)
-    Page<Product> findAllFiltered(@Param("categoryId") Long categoryId, @Param("search") String search, Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId AND LOWER(p.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<Product> findByCategoryIdAndNameContaining(@Param("categoryId") Long categoryId, @Param("search") String search, Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId")
+    Page<Product> findByCategoryId(@Param("categoryId") Long categoryId, Pageable pageable);
+
+    @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :search, '%'))")
+    Page<Product> findByNameContaining(@Param("search") String search, Pageable pageable);
 }

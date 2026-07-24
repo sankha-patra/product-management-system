@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -52,32 +53,27 @@ public class ProductController {
         return ResponseEntity.noContent().build();
     }
 
-    // @PostMapping("/bulk-upload")
-    // public ResponseEntity<BulkUploadResponse> bulkUpload(@RequestParam("file") MultipartFile file) {
-    //     productService.processBulkUpload(file);
-    //     return ResponseEntity.ok(new BulkUploadResponse("Upload started successfully", 0));
-    // }
-
     @PostMapping("/bulk-upload")
     public ResponseEntity<BulkUploadResponse> bulkUpload(@RequestParam("file") MultipartFile file) throws Exception {
         byte[] fileBytes = file.getBytes();
         productService.processBulkUpload(fileBytes);
         return ResponseEntity.ok(new BulkUploadResponse("Upload started successfully", 0));
     }
+
     @GetMapping("/report")
-    public ResponseEntity<StreamingResponseBody> getReport(@RequestParam(defaultValue = "csv") String format) {
+    public ResponseEntity<?> getReport(@RequestParam(defaultValue = "csv") String format) {
         if ("xlsx".equalsIgnoreCase(format)) {
+            byte[] xlsxData = reportService.generateXlsxReport();
             return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=products.xlsx")
-                .header(HttpHeaders.CONTENT_TYPE, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
-                .body(reportService.generateXlsxReport());
-        }else {
+                .contentType(MediaType.parseMediaType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"))
+                .contentLength(xlsxData.length)
+                .body(xlsxData);
+        } else {
             return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=products.csv")
-                .header(HttpHeaders.CONTENT_TYPE, "text/csv")
+                .contentType(MediaType.parseMediaType("text/csv"))
                 .body(reportService.generateCsvReport());
         }
     }
-
-   
 }

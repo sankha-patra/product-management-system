@@ -5,13 +5,12 @@ import com.productmgmt.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
+import java.io.ByteArrayOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.List;
-import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 
 @Service
 @RequiredArgsConstructor
@@ -32,38 +31,16 @@ public class ReportService {
         };
     }
 
-    // public StreamingResponseBody generateXlsxReport() {
-    //     return outputStream -> {
-    //         try (Workbook workbook = new XSSFWorkbook()) {
-    //             Sheet sheet = workbook.createSheet("Products");
-    //             Row header = sheet.createRow(0);
-    //             header.createCell(0).setCellValue("ID");
-    //             header.createCell(1).setCellValue("Name");
-    //             header.createCell(2).setCellValue("Price");
-    //             header.createCell(3).setCellValue("Category");
-
-    //             List<Product> products = productRepository.findAll();
-    //             int rowIdx = 1;
-    //             for (Product p : products) {
-    //                 Row row = sheet.createRow(rowIdx++);
-    //                 row.createCell(0).setCellValue(p.getId());
-    //                 row.createCell(1).setCellValue(p.getName());
-    //                 row.createCell(2).setCellValue(p.getPrice().doubleValue());
-    //                 row.createCell(3).setCellValue(p.getCategory().getName());
-    //             }
-    //             workbook.write(outputStream);
-    //         }
-    //     };
-    // }
-    public StreamingResponseBody generateXlsxReport() {
-    return outputStream -> {
-        try (SXSSFWorkbook workbook = new SXSSFWorkbook()) {
+    public byte[] generateXlsxReport() {
+        try (XSSFWorkbook workbook = new XSSFWorkbook();
+             ByteArrayOutputStream out = new ByteArrayOutputStream()) {
             Sheet sheet = workbook.createSheet("Products");
             Row header = sheet.createRow(0);
             header.createCell(0).setCellValue("ID");
             header.createCell(1).setCellValue("Name");
             header.createCell(2).setCellValue("Price");
             header.createCell(3).setCellValue("Category");
+
             List<Product> products = productRepository.findAll();
             int rowIdx = 1;
             for (Product p : products) {
@@ -73,9 +50,10 @@ public class ReportService {
                 row.createCell(2).setCellValue(p.getPrice().doubleValue());
                 row.createCell(3).setCellValue(p.getCategory().getName());
             }
-            workbook.write(outputStream);
-            workbook.dispose();
+            workbook.write(out);
+            return out.toByteArray();
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to generate XLSX report", e);
         }
-    };
-}
+    }
 }

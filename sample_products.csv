@@ -1,0 +1,11 @@
+name,image,price,categoryId
+Samsung Galaxy S24,https://example.com/samsung-s24.jpg,899.99,1
+Sony WH-1000XM5,https://example.com/sony-headphones.jpg,349.99,1
+MacBook Pro 16,https://example.com/macbook-pro.jpg,2499.99,1
+iPad Air M2,https://example.com/ipad-air.jpg,599.99,1
+Dell XPS 15,https://example.com/dell-xps.jpg,1299.99,1
+Nintendo Switch OLED,https://example.com/switch-oled.jpg,349.99,1
+Canon EOS R6,https://example.com/canon-r6.jpg,1999.99,1
+Bose QuietComfort,https://example.com/bose-qc.jpg,279.99,1
+Apple Watch Ultra 2,https://example.com/apple-watch.jpg,799.99,1
+LG OLED C3 65inch,https://example.com/lg-oled.jpg,1799.99,1
