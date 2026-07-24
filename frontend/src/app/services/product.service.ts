@@ -44,6 +44,17 @@ export class ProductService {
   }
 
   downloadReport(format: string) {
-    window.open(`${this.apiUrl}/report?format=${format}`, '_blank');
-  }
+  this.http.get(`${this.apiUrl}/report?format=${format}`, {
+    responseType: 'blob',
+    observe: 'response'
+  }).subscribe(response => {
+    const blob = response.body!;
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `products-report.${format}`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  });
+}
 }
