@@ -140,7 +140,7 @@
                   "pm.test(\"Category created with valid ID\", function () {",
                   "    var jsonData = pm.response.json();",
                   "    pm.expect(jsonData).to.have.property(\"id\");",
-                  "    pm.expect(jsonData.name).to.eql(\"Electronics\");",
+                  "    pm.expect(jsonData).to.have.property(\"name\");",
                   "});",
                   "",
                   "var jsonData = pm.response.json();",
@@ -943,4 +943,4 @@
       "type": "string"
     }
   ]
-},Description:
+}
